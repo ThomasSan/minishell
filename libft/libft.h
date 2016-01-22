@@ -70,6 +70,7 @@ char				*ft_strrchr(const char *str, int c);
 char				*ft_strstr(const char *str, const char *to_find);
 char				*ft_strnstr(const char *str, const char *t, size_t len);
 char				*ft_strrev(char *s);
+char				**ft_split(char const *s);
 
 typedef struct		s_list
 {

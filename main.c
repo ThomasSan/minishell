@@ -12,31 +12,54 @@
 
 #include "minishell.h"
 
-int		start_proc(char **tab)
+int		ft_start_proc(char **tab)
 {
 	pid_t	pid;
-	// int		status;
+	int		status;
 
+	status = 1;
 	pid = fork();
 	if (pid == 0)
 	{
 		if (execve(tab[0], tab, NULL) == -1)
-			printf("Error\n");
+		{
+			ft_putstr(tab[0]);
+			ft_putendl(": command not found");
+		}
 	}
 	else if (pid < 0)
 	{
-		printf("Error Forking\n");
+		ft_putendl("Error Forking");
 	}
 	else
 	{
-
+		wait(&status);
+		return (1);
 	}
 	return (0);
 }
 
-void	shell_loop()
+int		ft_exec(char **tab)
+{
+	static char *bi[] = {"cd", "ls", "exit"};
+	int	i;
+
+	i = 0;
+	if (tab[0] == NULL)
+		return (1);
+	while (i < BUILT)
+	{
+		if (ft_strcmp(tab[0], bi[i]) == 0)
+			return(g_fun[i](tab));
+		i++;
+	}
+	return (ft_start_proc(tab));
+}
+
+void	ft_shell_loop()
 {
 	int		status;
+	int		i;
 	char	*line;
 	char	**tab;
 
@@ -47,8 +70,11 @@ void	shell_loop()
 		while (get_next_line(0, &line) == -1)
 		{
 		}
-		tab = ft_strsplit(line, ' ');
-		start_proc(tab);
+		tab = ft_split(line);
+		i = 0;
+		ft_exec(tab);
+		free(line);
+		free(tab);
 	}
 }
 
@@ -57,6 +83,7 @@ int		main(int ac, char **av)
 	(void)ac;
 	(void)av;
 
-	shell_loop();
+	ft_function_array();
+	ft_shell_loop();
 	return (0);
 }
