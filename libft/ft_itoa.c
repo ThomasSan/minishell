@@ -33,9 +33,6 @@ static int		size_len(int n)
 
 static char		*itostr(int n, char *s, int len)
 {
-	int		i;
-
-	i = 0;
 	if (n < 0)
 	{
 		n = -n;

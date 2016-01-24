@@ -15,7 +15,7 @@ SRC = main.c get_next_line.c built_in.c
 
 OBJ = $(SRC:%.c=obj/%.o)
 
-CXX = clang
+CXX = gcc
 CXXFLAGS = -Wall -Werror -Wextra
 
 INC = -I includes

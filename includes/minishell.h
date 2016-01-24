@@ -12,7 +12,7 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define BUILT 8
+# define BUILT 3
 
 # include <stdlib.h>
 # include <stdio.h>

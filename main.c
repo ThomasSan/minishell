@@ -25,6 +25,7 @@ int		ft_start_proc(char **tab)
 		{
 			ft_putstr(tab[0]);
 			ft_putendl(": command not found");
+			exit(0);
 		}
 	}
 	else if (pid < 0)
@@ -59,7 +60,6 @@ int		ft_exec(char **tab)
 void	ft_shell_loop()
 {
 	int		status;
-	int		i;
 	char	*line;
 	char	**tab;
 
@@ -71,7 +71,6 @@ void	ft_shell_loop()
 		{
 		}
 		tab = ft_split(line);
-		i = 0;
 		ft_exec(tab);
 		free(line);
 		free(tab);
