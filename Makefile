@@ -6,12 +6,12 @@
 #    By: mdebelle <mdebelle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 18:33:59 by mdebelle          #+#    #+#              #
-#    Updated: 2016/01/22 17:41:32 by tsanzey          ###   ########.fr        #
+#    Updated: 2016/01/25 12:30:03 by tsanzey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRC = main.c get_next_line.c built_in.c
+SRC = main.c get_next_line.c built_in.c envp.c ft_misc.c
 
 OBJ = $(SRC:%.c=obj/%.o)
 

@@ -40,9 +40,9 @@ int		ft_start_proc(char **tab)
 	return (0);
 }
 
-int		ft_exec(char **tab)
+int		ft_exec(char **tab, t_env *env)
 {
-	static char *bi[] = {"cd", "ls", "exit"};
+	static char *bi[] = {"cd", "ls", "exit", "env"};
 	int	i;
 
 	i = 0;
@@ -51,13 +51,13 @@ int		ft_exec(char **tab)
 	while (i < BUILT)
 	{
 		if (ft_strcmp(tab[0], bi[i]) == 0)
-			return(g_fun[i](tab));
+			return(g_fun[i](tab, env));
 		i++;
 	}
 	return (ft_start_proc(tab));
 }
 
-void	ft_shell_loop()
+void	ft_shell_loop(t_env *env)
 {
 	int		status;
 	char	*line;
@@ -71,18 +71,50 @@ void	ft_shell_loop()
 		{
 		}
 		tab = ft_split(line);
-		ft_exec(tab);
+		ft_exec(tab, env);
 		free(line);
 		free(tab);
 	}
 }
 
-int		main(int ac, char **av)
+t_env	*ft_get_env(t_env **env, char *var)
+{
+	t_env *new;
+	t_env *tmp;
+	int	i;
+
+	i = 0;
+	if (!(new = (t_env *)malloc(sizeof(t_env))))
+	return (NULL);
+	while (var[i] != '=')
+		i++;
+	new->name = ft_strsub(var, 0, i);
+	new->val = ft_strsub(var, (i + 1), (ft_strlen(var) - i));
+	new->next = NULL;
+	if (*env == NULL)
+		*env = new;
+	else
+	{
+		tmp = *env;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	return (*env);
+}
+
+int		main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	(void)av;
+	t_env	*env;
 
+	while (*envp)
+	{
+		env = ft_get_env(&env, *envp);
+		envp++;
+	}
 	ft_function_array();
-	ft_shell_loop();
+	ft_shell_loop(env);
 	return (0);
 }
