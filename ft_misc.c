@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*cat_path(char *s1, char *s2)
+char	*cat_env(char *s1, char *s2)
 {
 	char	*dst;
 	int		len;
@@ -58,4 +58,24 @@ void	change_old_pwd(t_env *env)
 	tmp1->val = ft_strdup(swp);
 	free(swp);
 	tmp->val = getcwd(tmp->val, 1024);
+}
+
+int		ft_chkstr_for(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int		ft_usage(void)
+{
+	ft_putendl("usage: setenv KEY VALUE");
+	return (0);
 }

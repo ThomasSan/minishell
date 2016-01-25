@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = minishell
-SRC = main.c get_next_line.c built_in.c envp.c ft_misc.c
+SRC = main.c get_next_line.c built_in.c envp.c ft_misc.c lst_manip.c
 
 OBJ = $(SRC:%.c=obj/%.o)
 

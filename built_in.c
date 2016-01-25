@@ -61,8 +61,9 @@ void	ft_function_array(void)
 	g_fun[1] = ft_listdir;
 	g_fun[2] = ft_exit;
 	g_fun[3] = ft_env;
-	/*g_fun[5] = ft_vim;
-	g_fun[4] = ft_emacs;
-	g_fun[6] = ft_setenv;
-	g_fun[7] = ft_unsetenv;*/
+	g_fun[4] = ft_setenv;
+	g_fun[5] = ft_unsetenv;
+	/*g_fun[6] = ft_vim;
+	g_fun[7] = ft_emacs;
+	*/
 }
