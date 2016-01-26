@@ -74,10 +74,14 @@ int		ft_chkstr_for(char *s, char c)
 	return (0);
 }
 
-int		ft_usage(void)
+int		tab_len(char **tab)
 {
-	ft_putendl("usage: setenv KEY VALUE");
-	return (0);
+	int i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }
 
 void	free_2d_tab(char **tab)

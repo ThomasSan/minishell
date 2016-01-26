@@ -28,7 +28,7 @@
 typedef struct		s_env
 {
 	char			*name;
-	char 			*val;
+	char			*val;
 	struct s_env	*next;
 }					t_env;
 
@@ -39,7 +39,7 @@ int					(*g_fun[BUILT])(char **, t_env *);
 void				ft_function_array(void);
 int					ft_changedir(char **tab, t_env *env);
 int					ft_listdir(char **tab, t_env *env);
-int 				ft_exit(char **tab, t_env *env);
+int					ft_exit(char **tab, t_env *env);
 int					ft_env(char **tab, t_env *env);
 
 /* LINKED LIST */
@@ -49,9 +49,11 @@ void				ft_search_lst(t_env **env, char *s);
 
 /* MISC */
 
-int					ft_usage(void);
+int					ft_usage_setenv(void);
+int					ft_usage_cd(char *s, int x);
 char				**lst_to_arr(t_env *env);
 void				free_2d_tab(char **tab);
+int					tab_len(char **tab);
 
 /* ENV FUNCTIONS */
 

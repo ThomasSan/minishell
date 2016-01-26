@@ -17,19 +17,24 @@ int		ft_changedir(char **tab, t_env *env)
 	t_env	*tmp;
 
 	tmp = env;
-	if (tab[1] == NULL)
-	{
-		while (tmp)
-		{
-			if (ft_strcmp(tmp->name, "HOME") == 0)
-				chdir(tmp->val);
-			tmp = tmp->next;
-		}
-	}
+	if (tab_len(tab) > 2)
+		return (ft_usage_cd(tab[1], 0));
 	else
 	{
-		if (chdir(tab[1]) != 0)
-			ft_putendl("Error: Invalid Path or You can't access this dir");
+		if (tab[1] == NULL)
+		{
+			while (tmp)
+			{
+				if (ft_strcmp(tmp->name, "HOME") == 0)
+					chdir(tmp->val);
+				tmp = tmp->next;
+			}
+		}
+		else
+		{
+			if (chdir(tab[1]) != 0)
+				ft_usage_cd(tab[1], 1);
+		}
 	}
 	change_old_pwd(env);
 	return (1);

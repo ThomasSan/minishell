@@ -35,13 +35,13 @@ int		ft_setenv(char **tab, t_env *env)
 	while (tab[count])
 		count++;
 	if (count <= 1 || count > 3)
-		return (ft_usage());
+		return (ft_usage_setenv());
 	if (!tab[2])
 	{
 		if (ft_chkstr_for(tab[1], '='))
 			ft_search_lst(&env, tab[1]);
 		else
-			return (ft_usage());
+			return (ft_usage_setenv());
 	}
 	else if (tab[1] && tab[2])
 	{
