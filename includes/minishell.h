@@ -12,7 +12,7 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define BUILT 6
+# define BUILT 9
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -33,7 +33,7 @@ typedef struct		s_env
 }					t_env;
 
 int					ft_chkstr_for(char *s, char c);
-int					ft_start_proc(char **tab);
+int					ft_start_proc(char **tab, t_env *env);
 
 int					(*g_fun[BUILT])(char **, t_env *);
 void				ft_function_array(void);
@@ -44,12 +44,14 @@ int					ft_env(char **tab, t_env *env);
 
 /* LINKED LIST */
 
-t_env				*ft_lst_remove_if(t_env **env, char *s);
+int					ft_lst_remove_if(t_env *env, char *s);
 void				ft_search_lst(t_env **env, char *s);
 
 /* MISC */
 
 int					ft_usage(void);
+char				**lst_to_arr(t_env *env);
+void				free_2d_tab(char **tab);
 
 /* ENV FUNCTIONS */
 
@@ -58,5 +60,9 @@ t_env				*ft_get_env(t_env **env, char *var);
 int					ft_setenv(char **tab, t_env *env);
 int					ft_unsetenv(char **tab, t_env *env);
 void				change_old_pwd(t_env *env);
+
+/* TEXT EDITORS */
+int					ft_emacs(char **tab, t_env *env);
+int					ft_vim(char **tab, t_env *env);
 
 #endif

@@ -79,3 +79,15 @@ int		ft_usage(void)
 	ft_putendl("usage: setenv KEY VALUE");
 	return (0);
 }
+
+void	free_2d_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+}

@@ -12,38 +12,40 @@
 
 #include "minishell.h"
 
-int		ft_start_proc(char **tab)
+int		ft_start_proc(char **tab, t_env *env)
 {
 	pid_t	pid;
-	int		status;
+	char	**tab_env;
 
-	status = 1;
 	pid = fork();
+	tab_env = NULL;
 	if (pid == 0)
 	{
-		if (execve(tab[0], tab, NULL) == -1)
+		tab_env = lst_to_arr(env);
+		if (execve(tab[0], tab, tab_env) == -1)
 		{
 			ft_putstr(tab[0]);
 			ft_putendl(": command not found");
-			exit(0);
 		}
+		free_2d_tab(tab_env);
+		free_2d_tab(tab);
+		exit(0);
 	}
 	else if (pid < 0)
-	{
 		ft_putendl("Error Forking");
-	}
 	else
 	{
-		wait(&status);
+		wait(&pid);
 		return (1);
 	}
-	return (0);
+	return (1);
 }
 
 int		ft_exec(char **tab, t_env *env)
 {
-	static char *bi[] = {"cd", "ls", "exit", "env", "setenv", "unsetenv"};
-	int	i;
+	static char *bi[] = {"cd", "exit", "env", "setenv", "unsetenv",
+	"ls", "pwd", "vim", "emacs"};
+	int			i;
 
 	i = 0;
 	if (tab[0] == NULL)
@@ -51,10 +53,10 @@ int		ft_exec(char **tab, t_env *env)
 	while (i < BUILT)
 	{
 		if (ft_strcmp(tab[0], bi[i]) == 0)
-			return(g_fun[i](tab, env));
+			return (g_fun[i](tab, env));
 		i++;
 	}
-	return (ft_start_proc(tab));
+	return (ft_start_proc(tab, env));
 }
 
 void	ft_shell_loop(t_env *env)
@@ -67,22 +69,21 @@ void	ft_shell_loop(t_env *env)
 	while (status)
 	{
 		ft_putstr("$> ");
-		while (get_next_line(0, &line) == -1)
-		{
-		}
+		get_next_line(0, &line);
 		tab = ft_split(line);
-		ft_exec(tab, env);
 		free(line);
-		free(tab);
+		if (ft_exec(tab, env) == 0)
+			env = env->next;
+		free_2d_tab(tab);
 	}
 }
 
 int		main(int ac, char **av, char **envp)
 {
-	(void)ac;
-	(void)av;
 	t_env	*env;
 
+	(void)ac;
+	(void)av;
 	ft_putendl("Good day sir !");
 	while (*envp)
 	{

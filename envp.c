@@ -1,10 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envp.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/26 18:27:00 by tsanzey           #+#    #+#             */
+/*   Updated: 2016/01/26 18:27:01 by tsanzey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-ft_vim;
-ft_emacs;
-ft_unsetenv;
-*/
+#include "minishell.h"
 
 int		ft_env(char **tab, t_env *env)
 {
@@ -42,7 +48,7 @@ int		ft_setenv(char **tab, t_env *env)
 		arr = cat_env(tab[1], tab[2]);
 		ft_search_lst(&env, arr);
 	}
-	return (0);
+	return (1);
 }
 
 int		ft_unsetenv(char **tab, t_env *env)
@@ -50,10 +56,12 @@ int		ft_unsetenv(char **tab, t_env *env)
 	int		i;
 
 	i = 1;
+	if (tab[i] == NULL)
+		ft_putendl("unsetenv: usage: unsetenv VAR_NAME");
 	while (tab[i])
 	{
-		env = ft_lst_remove_if(&env, tab[i]);
+		return (ft_lst_remove_if(env, tab[i]));
 		i++;
 	}
-	return (0);
+	return (1);
 }
