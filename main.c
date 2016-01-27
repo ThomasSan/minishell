@@ -16,23 +16,29 @@ int		ft_start_proc(char **tab, t_env *env)
 {
 	pid_t		pid;
 	char		**tab_env;
-	static char	**tab_path;
+	char		**tab_path;
+	char		**tmp;
+	char		*path;
 
 	pid = fork();
 	tab_env = NULL;
-	tab_path = get_path_env(env);
 	if (pid == 0)
 	{
+		tab_path = get_path_env(env);
+		tmp = tab_path;
 		tab_env = lst_to_arr(env);
-		while (*tab_path && execve(cat_path(*tab_path, tab[0]), tab, tab_env) == -1)
+		while (*tab_path && execve(path = (cat_path(*tab_path, tab[0])), tab, tab_env) == -1)
+		{
+			free(path);
 			tab_path++;
+		}
 		if (execve(tab[0], tab, tab_env) == -1)
 		{
 			ft_putstr(tab[0]);
 			ft_putendl(": command not found");
 		}
 		free_2d_tab(tab_env);
-		free_2d_tab(tab_path);
+		free_2d_tab(tmp);
 		free_2d_tab(tab);
 		exit(0);
 	}

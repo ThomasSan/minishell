@@ -12,22 +12,6 @@
 
 #include "minishell.h"
 
-int		ft_vim(char **tab, t_env *env)
-{
-	free(tab[0]);
-	tab[0] = ft_strdup("/usr/bin/vim");
-	ft_start_proc(tab, env);
-	return (1);
-}
-
-int		ft_emacs(char **tab, t_env *env)
-{
-	free(tab[0]);
-	ft_putendl("NO, NO, you gonna use VIM");
-	tab[0] = ft_strdup("/usr/bin/vim");
-	ft_start_proc(tab, env);
-	return (1);
-}
 
 char	**get_path_env(t_env *env)
 {
@@ -43,4 +27,26 @@ char	**get_path_env(t_env *env)
 	tab = ft_strsplit(dst, ':');
 	free(dst);
 	return (tab);
+}
+
+int		tab_len(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+void	free_2d_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
 }

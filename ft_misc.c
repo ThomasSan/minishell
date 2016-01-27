@@ -100,25 +100,3 @@ int		ft_chkstr_for(char *s, char c)
 	}
 	return (0);
 }
-
-int		tab_len(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-void	free_2d_tab(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-}

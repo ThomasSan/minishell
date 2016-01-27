@@ -38,7 +38,6 @@ int					ft_start_proc(char **tab, t_env *env);
 int					(*g_fun[BUILT])(char **, t_env *);
 void				ft_function_array(void);
 int					ft_changedir(char **tab, t_env *env);
-int					ft_listdir(char **tab, t_env *env);
 int					ft_exit(char **tab, t_env *env);
 int					ft_env(char **tab, t_env *env);
 
@@ -65,8 +64,5 @@ int					ft_unsetenv(char **tab, t_env *env);
 void				change_old_pwd(t_env *env);
 char				**get_path_env(t_env *env);
 
-/* TEXT EDITORS */
-int					ft_emacs(char **tab, t_env *env);
-int					ft_vim(char **tab, t_env *env);
 
 #endif
