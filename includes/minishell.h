@@ -12,7 +12,7 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define BUILT 9
+# define BUILT 5
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -58,10 +58,12 @@ int					tab_len(char **tab);
 /* ENV FUNCTIONS */
 
 char				*cat_env(char *s1, char *s2);
+char				*cat_path(char *s1, char *s2);
 t_env				*ft_get_env(t_env **env, char *var);
 int					ft_setenv(char **tab, t_env *env);
 int					ft_unsetenv(char **tab, t_env *env);
 void				change_old_pwd(t_env *env);
+char				**get_path_env(t_env *env);
 
 /* TEXT EDITORS */
 int					ft_emacs(char **tab, t_env *env);

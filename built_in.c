@@ -75,8 +75,4 @@ void	ft_function_array(void)
 	g_fun[2] = ft_env;
 	g_fun[3] = ft_setenv;
 	g_fun[4] = ft_unsetenv;
-	g_fun[5] = ft_listdir;
-	g_fun[6] = ft_pwd;
-	g_fun[7] = ft_vim;
-	g_fun[8] = ft_emacs;
 }

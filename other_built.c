@@ -28,3 +28,19 @@ int		ft_emacs(char **tab, t_env *env)
 	ft_start_proc(tab, env);
 	return (1);
 }
+
+char	**get_path_env(t_env *env)
+{
+	char	*dst;
+	char	**tab;
+
+	while (env)
+	{
+		if (ft_strcmp("PATH", env->name) == 0)
+			dst = ft_strdup(env->val);
+		env = env->next;
+	}
+	tab = ft_strsplit(dst, ':');
+	free(dst);
+	return (tab);
+}
