@@ -43,29 +43,24 @@ int		ft_changedir(char **tab, t_env *env)
 	return (1);
 }
 
-int		ft_listdir(char **tab, t_env *env)
-{
-	free(tab[0]);
-	tab[0] = ft_strdup("/bin/ls");
-	ft_start_proc(tab, env);
-	return (1);
-}
-
 int		ft_exit(char **tab, t_env *env)
 {
-	(void)tab;
-	(void)env;
-	ft_putendl("GoodBye !");
-	exit(0);
-	return (0);
-}
+	int		i;
 
-int		ft_pwd(char **tab, t_env *env)
-{
-	free(tab[0]);
-	tab[0] = ft_strdup("/bin/pwd");
-	ft_start_proc(tab, env);
-	return (1);
+	if(tab_len(tab) > 2)
+	{
+		ft_putendl("exit: too many arguments");
+		return (1);
+	}
+	i = 0;
+	(void)env;
+	if (tab[1])
+	{
+		i = ft_atoi(tab[1]);
+	}
+	ft_putendl("GoodBye !");
+	exit(i);
+	return (i);
 }
 
 void	ft_function_array(void)
