@@ -15,26 +15,29 @@
 int		ft_changedir(char **tab, t_env *env)
 {
 	t_env	*tmp;
+	char	*dst;	
 
 	tmp = env;
 	if (tab_len(tab) > 2)
 		return (ft_usage_cd(tab[1], 0));
 	else
 	{
-		if (tab[1] == NULL)
-		{
+		if (tab[1] == NULL || ft_strncmp(tab[1], "~", 1) == 0)
 			while (tmp)
 			{
 				if (ft_strcmp(tmp->name, "HOME") == 0)
-					chdir(tmp->val);
+				{
+					if (tab[1])
+						dst = ft_strjoin(tmp->val, tab[1] + 1);
+					else
+						dst = ft_strdup(tmp->val);
+				}
 				tmp = tmp->next;
 			}
-		}
 		else
-		{
-			if (chdir(tab[1]) != 0)
-				ft_usage_cd(tab[1], 1);
-		}
+			dst = tab[1];
+		if (chdir(dst) != 0)
+			ft_usage_cd(dst, 1);
 	}
 	change_old_pwd(env);
 	return (1);

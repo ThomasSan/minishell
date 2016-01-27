@@ -6,7 +6,7 @@
 #    By: mdebelle <mdebelle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 18:33:59 by mdebelle          #+#    #+#              #
-#    Updated: 2016/01/26 18:43:08 by tsanzey          ###   ########.fr        #
+#    Updated: 2016/01/27 13:22:17 by tsanzey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ obj:
 	mkdir -p obj/
 
 clean:
+	@make clean -C $(LIB)
 	@rm -rf obj
 
 fclean: clean
