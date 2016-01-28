@@ -67,25 +67,6 @@ char	*cat_path(char *s1, char *s2)
 	dst[i + j] = '\0';
 	return (dst);
 }
-void	change_old_pwd(t_env *env)
-{
-	t_env	*tmp;
-	t_env	*tmp1;
-	char	*swp;
-
-	tmp = env;
-	tmp1 = env;
-	while (tmp && ft_strcmp(tmp->name, "PWD") != 0)
-		tmp = tmp->next;
-	if (ft_strcmp(tmp->name, "PWD") == 0)
-		swp = ft_strdup(tmp->val);
-	while (tmp1 && ft_strcmp(tmp1->name, "OLDPWD"))
-		tmp1 = tmp1->next;
-	free(tmp1->val);
-	tmp1->val = ft_strdup(swp);
-	free(swp);
-	tmp->val = getcwd(tmp->val, 1024);
-}
 
 int		ft_chkstr_for(char *s, char c)
 {

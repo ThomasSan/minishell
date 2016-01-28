@@ -21,7 +21,6 @@ int		ft_start_proc(char **tab, t_env *env)
 	char		*path;
 
 	pid = fork();
-	tab_env = NULL;
 	if (pid == 0)
 	{
 		tab_path = get_path_env(env);
@@ -33,22 +32,17 @@ int		ft_start_proc(char **tab, t_env *env)
 			tab_path++;
 		}
 		if (execve(tab[0], tab, tab_env) == -1)
-		{
-			ft_putstr(tab[0]);
-			ft_putendl(": command not found");
-		}
+			ft_putendl("command not found");
+		free_2d_tab(tab_path);
 		free_2d_tab(tab_env);
-		free_2d_tab(tmp);
+		free(tmp);
 		free_2d_tab(tab);
 		exit(0);
 	}
 	else if (pid < 0)
 		ft_putendl("Error Forking");
 	else
-	{
 		wait(&pid);
-		return (1);
-	}
 	return (1);
 }
 
@@ -60,6 +54,8 @@ int		ft_exec(char **tab, t_env *env)
 	i = 0;
 	if (tab[0] == NULL)
 		return (1);
+	if (tab[1])
+		tab[1] = ft_parse_option(tab[1], env);
 	while (i < BUILT)
 	{
 		if (ft_strcmp(tab[0], bi[i]) == 0)
@@ -85,6 +81,7 @@ void	ft_shell_loop(t_env *env)
 		if (ft_exec(tab, env) == 0)
 			env = env->next;
 		free_2d_tab(tab);
+		free(tab);
 	}
 }
 
@@ -95,6 +92,8 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	ft_putendl("Good day sir !");
+	if (signal(SIGINT, ft_handle_sig) == SIG_ERR)
+		ft_putendl("Error");
 	while (*envp)
 	{
 		env = ft_get_env(&env, *envp);

@@ -19,11 +19,11 @@ void	ft_search_lst(t_env **env, char *s)
 
 	tmp = *env;
 	len = 0;
-	while (s[len] != '=')
+	while (s[len] != '=' && s[len])
 		len++;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->name, s, len) == 0)
+		if (ft_strncmp(tmp->name, s, ft_strlen(tmp->name)) == 0)
 		{
 			free(tmp->val);
 			tmp->val = ft_strsub(s, (len + 1), (ft_strlen(s) - len));
@@ -40,12 +40,14 @@ t_env	*ft_get_env(t_env **env, char *var)
 	t_env	*new;
 	t_env	*tmp;
 	int		i;
+	int		flag;
 
 	i = 0;
 	if (!(new = (t_env *)malloc(sizeof(t_env))))
 		return (NULL);
-	while (var[i] != '=')
+	while (var[i] != '=' && var[i])
 		i++;
+	flag = var[i] == '=' ? 1 : 0;
 	new->name = ft_strsub(var, 0, i);
 	new->val = ft_strsub(var, (i + 1), (ft_strlen(var) - i));
 	new->next = NULL;

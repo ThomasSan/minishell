@@ -35,11 +35,15 @@ typedef struct		s_env
 int					ft_chkstr_for(char *s, char c);
 int					ft_start_proc(char **tab, t_env *env);
 
+/* BUILT INS */
+
 int					(*g_fun[BUILT])(char **, t_env *);
 void				ft_function_array(void);
-int					ft_changedir(char **tab, t_env *env);
 int					ft_exit(char **tab, t_env *env);
-int					ft_env(char **tab, t_env *env);
+
+/* CD */
+
+int					ft_changedir(char **tab, t_env *env);
 
 /* LINKED LIST */
 
@@ -48,14 +52,17 @@ void				ft_search_lst(t_env **env, char *s);
 
 /* MISC */
 
-int					ft_usage_setenv(void);
+char 				*ft_parse_option(char *tab1, t_env *env);
+int					ft_usage_setenv(int x);
 int					ft_usage_cd(char *s, int x);
 char				**lst_to_arr(t_env *env);
 void				free_2d_tab(char **tab);
 int					tab_len(char **tab);
+void				ft_handle_sig(int sig);
 
 /* ENV FUNCTIONS */
 
+int					ft_env(char **tab, t_env *env);
 char				*cat_env(char *s1, char *s2);
 char				*cat_path(char *s1, char *s2);
 t_env				*ft_get_env(t_env **env, char *var);
@@ -63,6 +70,6 @@ int					ft_setenv(char **tab, t_env *env);
 int					ft_unsetenv(char **tab, t_env *env);
 void				change_old_pwd(t_env *env);
 char				**get_path_env(t_env *env);
-
+int					set_muliple_env_var(char **tab, t_env *env, int count);
 
 #endif

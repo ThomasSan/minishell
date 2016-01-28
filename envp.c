@@ -30,23 +30,20 @@ int		ft_setenv(char **tab, t_env *env)
 	char	*arr;
 	int		count;
 
-	arr = NULL;
-	count = 0;
-	while (tab[count])
-		count++;
-	if (count <= 1 || count > 3)
-		return (ft_usage_setenv());
-	if (!tab[2])
+	count = tab_len(tab);
+	if (count == 1)
+		return (ft_env(tab, env));
+	if (count > 3)
+		return (set_muliple_env_var(tab, env, count));
+	if (count == 2)
+		ft_search_lst(&env, tab[1]);
+	else if (count == 3)
 	{
 		if (ft_chkstr_for(tab[1], '='))
-			ft_search_lst(&env, tab[1]);
-		else
-			return (ft_usage_setenv());
-	}
-	else if (tab[1] && tab[2])
-	{
+			return (ft_usage_setenv(1));
 		arr = cat_env(tab[1], tab[2]);
 		ft_search_lst(&env, arr);
+		free(arr);
 	}
 	return (1);
 }
@@ -61,6 +58,26 @@ int		ft_unsetenv(char **tab, t_env *env)
 	while (tab[i])
 	{
 		return (ft_lst_remove_if(env, tab[i]));
+		i++;
+	}
+	return (1);
+}
+
+int		set_muliple_env_var(char **tab, t_env *env, int count)
+{
+	int i;
+
+	i = 1;
+	while (i < count)
+	{
+		if (ft_chkstr_for(tab[i], '=') == 0)
+			return (ft_usage_setenv(0));
+		i++;
+	}
+	i = 1;
+	while (i < count)
+	{
+		ft_search_lst(&env, tab[i]);
 		i++;
 	}
 	return (1);

@@ -22,8 +22,17 @@ int		ft_usage_cd(char *s, int x)
 	return (1);
 }
 
-int		ft_usage_setenv(void)
+int		ft_usage_setenv(int x)
 {
-	ft_putendl("usage: setenv KEY VALUE");
+	if (x == 0)
+		ft_putendl("usage: setenv VAR VALUE");
+	if (x == 1)
+		ft_putendl("setenv: VARNAME should not contain any '='");
 	return (1);
+}
+
+void	ft_handle_sig(int sig)
+{
+	if (sig == SIGINT)
+		return ;
 }

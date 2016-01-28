@@ -67,6 +67,6 @@ char			**ft_split(char const *s)
 		while (s[j] && !ft_isspace(s[j]))
 			j++;
 	}
-	tab[i] = 0;
+	tab[i] = NULL;
 	return (tab);
 }
