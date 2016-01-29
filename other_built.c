@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 char	**get_path_env(t_env *env)
 {
 	char	*dst;

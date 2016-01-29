@@ -36,3 +36,21 @@ void	ft_handle_sig(int sig)
 	if (sig == SIGINT)
 		return ;
 }
+
+char	*ft_parse_option_2(char *tab1, t_env *env)
+{
+	char *s;
+
+	if (ft_strncmp(tab1, "~", 1) == 0)
+		while (env)
+		{
+			if (ft_strcmp(env->name, "HOME") == 0)
+			{
+				s = ft_strjoin(env->val, tab1 + 1);
+				free(tab1);
+				return (s);
+			}
+			env = env->next;
+		}
+	return (tab1);
+}

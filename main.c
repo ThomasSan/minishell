@@ -49,14 +49,18 @@ int		ft_exec(char **tab, t_env *env)
 	i = 0;
 	if (tab[0] == NULL)
 		return (1);
-	if (tab[1])
-		tab[1] = ft_parse_option(tab[1], env);
 	while (i < BUILT)
 	{
 		if (ft_strcmp(tab[0], bi[i]) == 0)
+		{
+			if (tab[1] && (i < 2 || i > 4))
+				tab[1] = ft_parse_option(tab[1], env);
 			return (g_fun[i](tab, env));
+		}
 		i++;
 	}
+	if (tab[1])
+		tab[1] = ft_parse_option_2(tab[1], env);
 	return (ft_start_proc(tab, env));
 }
 

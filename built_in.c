@@ -15,7 +15,7 @@
 int		ft_changedir(char **tab, t_env *env)
 {
 	t_env	*tmp;
-	char	*dst;	
+	char	*dst;
 
 	tmp = env;
 	if (tab_len(tab) > 2)
@@ -26,13 +26,11 @@ int		ft_changedir(char **tab, t_env *env)
 			while (tmp)
 			{
 				if (ft_strcmp(tmp->name, "HOME") == 0)
-						dst = ft_strdup(tmp->val);
+					dst = ft_strdup(tmp->val);
 				tmp = tmp->next;
 			}
 		else
-		{
 			dst = tab[1];
-		}
 		if (chdir(dst) != 0)
 			return (ft_usage_cd(dst, 1));
 	}
@@ -46,7 +44,7 @@ int		ft_exit(char **tab, t_env *env)
 {
 	int		i;
 
-	if(tab_len(tab) > 2)
+	if (tab_len(tab) > 2)
 	{
 		ft_putendl("exit: too many arguments");
 		return (1);
@@ -71,7 +69,7 @@ void	ft_function_array(void)
 	g_fun[4] = ft_unsetenv;
 }
 
-char     *ft_parse_option(char *tab1, t_env *env)
+char	*ft_parse_option(char *tab1, t_env *env)
 {
 	char *s;
 
@@ -86,12 +84,12 @@ char     *ft_parse_option(char *tab1, t_env *env)
 			}
 			env = env->next;
 		}
-	else if (ft_strcmp(tab1, "-") == 0)
+	else if (ft_strncmp(tab1, "-", 1) == 0)
 		while (env)
 		{
 			if (ft_strcmp(env->name, "OLDPWD") == 0)
 			{
-				s = ft_strdup(env->val);
+				s = ft_strjoin(env->val, tab1 + 1);
 				free(tab1);
 				return (s);
 			}

@@ -31,7 +31,7 @@ void	ft_search_lst(t_env **env, char *s)
 		}
 		tmp = tmp->next;
 	}
-	if (!tmp)
+	if (!tmp || !*env)
 		*env = ft_get_env(env, s);
 }
 
@@ -80,7 +80,6 @@ int		ft_lst_remove_if(t_env *env, char *s)
 			free(tmp->name);
 			free(tmp->val);
 			free(tmp);
-			tmp = NULL;
 			return (count);
 		}
 		count++;
@@ -88,6 +87,8 @@ int		ft_lst_remove_if(t_env *env, char *s)
 		tmp = tmp->next;
 	}
 	ft_putendl("No such VAR found in ENV");
+	if (env == NULL)
+		return (1);
 	return (count);
 }
 

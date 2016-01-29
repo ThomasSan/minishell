@@ -14,14 +14,16 @@
 
 int		ft_env(char **tab, t_env *env)
 {
-	(void)tab;
-	while (env)
-	{
-		ft_putstr(env->name);
-		ft_putchar('=');
-		ft_putendl(env->val);
-		env = env->next;
-	}
+	if (tab[1])
+		ft_start_proc(tab, env);
+	else if (tab[1] == NULL)
+		while (env)
+		{
+			ft_putstr(env->name);
+			ft_putchar('=');
+			ft_putendl(env->val);
+			env = env->next;
+		}
 	return (1);
 }
 
@@ -39,7 +41,9 @@ int		ft_setenv(char **tab, t_env *env)
 		ft_search_lst(&env, tab[1]);
 	else if (count == 3)
 	{
-		if (ft_chkstr_for(tab[1], '='))
+		if (ft_chkstr_for(tab[1], '=') && ft_chkstr_for(tab[2], '='))
+			return (set_muliple_env_var(tab, env, count));
+		else
 			return (ft_usage_setenv(1));
 		arr = cat_env(tab[1], tab[2]);
 		ft_search_lst(&env, arr);
@@ -93,7 +97,7 @@ void	ft_shell_level(t_env *env)
 		{
 			i = ft_atoi(env->val);
 			i++;
-			free (env->val);
+			free(env->val);
 			env->val = ft_itoa(i);
 			return ;
 		}

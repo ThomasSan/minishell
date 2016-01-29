@@ -14,7 +14,7 @@
 # define MINISHELL_H
 # define BUILT 5
 
-# include <termios.h> 
+# include <termios.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -35,34 +35,20 @@ typedef struct		s_env
 
 int					ft_chkstr_for(char *s, char c);
 int					ft_start_proc(char **tab, t_env *env);
-
-/* BUILT INS */
-
 int					(*g_fun[BUILT])(char **, t_env *);
 void				ft_function_array(void);
 int					ft_exit(char **tab, t_env *env);
-
-/* CD */
-
 int					ft_changedir(char **tab, t_env *env);
-
-/* LINKED LIST */
-
 int					ft_lst_remove_if(t_env *env, char *s);
 void				ft_search_lst(t_env **env, char *s);
-
-/* MISC */
-
-char 				*ft_parse_option(char *tab1, t_env *env);
+char				*ft_parse_option(char *tab1, t_env *env);
+char				*ft_parse_option_2(char *tab1, t_env *env);
 int					ft_usage_setenv(int x);
 int					ft_usage_cd(char *s, int x);
 char				**lst_to_arr(t_env *env);
 void				free_2d_tab(char **tab);
 int					tab_len(char **tab);
 void				ft_handle_sig(int sig);
-
-/* ENV FUNCTIONS */
-
 void				ft_shell_level(t_env *env);
 int					ft_env(char **tab, t_env *env);
 char				*cat_env(char *s1, char *s2);

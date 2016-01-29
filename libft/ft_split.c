@@ -56,7 +56,7 @@ char			**ft_split(char const *s)
 	j = 0;
 	tab = NULL;
 	word = count_word(s);
-	if(!(tab = (char **)malloc(sizeof(tab) * word + 1)))
+	if (!(tab = (char **)malloc(sizeof(tab) * word + 1)))
 		return (NULL);
 	while (i < word)
 	{
