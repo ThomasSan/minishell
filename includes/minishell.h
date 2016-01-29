@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # define BUILT 5
 
+# include <termios.h> 
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>

@@ -26,16 +26,19 @@ int		ft_start_proc(char **tab, t_env *env)
 		tab_path = get_path_env(env);
 		tmp = tab_path;
 		tab_env = lst_to_arr(env);
+		printf("tab_path %s\n", tab_path[0]);
+		printf("tab_path %s\n", tab_env[0]);
 		while (*tab_path && execve(path = (cat_path(*tab_path, tab[0])), tab, tab_env) == -1)
 		{
+			printf("intering\n");
 			free(path);
 			tab_path++;
 		}
+		printf("oui?\n");
 		if (execve(tab[0], tab, tab_env) == -1)
 			ft_putendl("command not found");
-		free_2d_tab(tab_path);
 		free_2d_tab(tab_env);
-		free(tmp);
+		free_2d_tab(tmp);
 		free_2d_tab(tab);
 		exit(0);
 	}
@@ -75,7 +78,8 @@ void	ft_shell_loop(t_env *env)
 	while (status)
 	{
 		ft_putstr("$> ");
-		get_next_line(0, &line);
+		while (get_next_line(0, &line) == -1)
+		{}
 		tab = ft_split(line);
 		free(line);
 		if (ft_exec(tab, env) == 0)
@@ -87,10 +91,16 @@ void	ft_shell_loop(t_env *env)
 
 int		main(int ac, char **av, char **envp)
 {
-	t_env	*env;
+	t_env			*env;
+	struct termios	term;
+	struct termios	new_term;
 
 	(void)ac;
 	(void)av;
+	tcgetattr(0, &term);
+	new_term = term;
+	new_term.c_cc[VEOF] = 0;
+	tcsetattr(0,TCSANOW,&new_term);
 	ft_putendl("Good day sir !");
 	if (signal(SIGINT, ft_handle_sig) == SIG_ERR)
 		ft_putendl("Error");

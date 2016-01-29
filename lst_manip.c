@@ -110,7 +110,8 @@ char	**lst_to_arr(t_env *env)
 	int		i;
 
 	i = 0;
-	dst = (char **)malloc(sizeof(char *) * ft_list_len(env) + 1);
+	if (!(dst = (char **)malloc(sizeof(char *) * ft_list_len(env) + 1)))
+		return (NULL);
 	while (env)
 	{
 		dst[i] = cat_env(env->name, env->val);
