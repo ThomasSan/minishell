@@ -82,3 +82,21 @@ int		set_muliple_env_var(char **tab, t_env *env, int count)
 	}
 	return (1);
 }
+
+void	ft_shell_level(t_env *env)
+{
+	int i;
+
+	while (env)
+	{
+		if (ft_strcmp(env->name, "SHLVL") == 0)
+		{
+			i = ft_atoi(env->val);
+			i++;
+			free (env->val);
+			env->val = ft_itoa(i);
+			return ;
+		}
+		env = env->next;
+	}
+}

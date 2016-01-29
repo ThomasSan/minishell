@@ -16,25 +16,19 @@ int		ft_start_proc(char **tab, t_env *env)
 {
 	pid_t		pid;
 	char		**tab_env;
-	char		**tab_path;
+	char		**tpath;
 	char		**tmp;
 	char		*path;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		tab_path = get_path_env(env);
-		tmp = tab_path;
+		tpath = get_path_env(env);
 		tab_env = lst_to_arr(env);
-		printf("tab_path %s\n", tab_path[0]);
-		printf("tab_path %s\n", tab_env[0]);
-		while (*tab_path && execve(path = (cat_path(*tab_path, tab[0])), tab, tab_env) == -1)
-		{
-			printf("intering\n");
-			free(path);
-			tab_path++;
-		}
-		printf("oui?\n");
+		if ((tmp = tpath) != NULL)
+			while (*tpath &&
+	execve(path = (cat_path(*tpath, tab[0])), tab, tab_env) == -1 && tpath++)
+				free(path);
 		if (execve(tab[0], tab, tab_env) == -1)
 			ft_putendl("command not found");
 		free_2d_tab(tab_env);
@@ -42,9 +36,7 @@ int		ft_start_proc(char **tab, t_env *env)
 		free_2d_tab(tab);
 		exit(0);
 	}
-	else if (pid < 0)
-		ft_putendl("Error Forking");
-	else
+	else if (pid > 0)
 		wait(&pid);
 	return (1);
 }
@@ -75,11 +67,13 @@ void	ft_shell_loop(t_env *env)
 	char	**tab;
 
 	status = 1;
+	ft_shell_level(env);
 	while (status)
 	{
 		ft_putstr("$> ");
 		while (get_next_line(0, &line) == -1)
-		{}
+		{
+		}
 		tab = ft_split(line);
 		free(line);
 		if (ft_exec(tab, env) == 0)
@@ -97,10 +91,11 @@ int		main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
+	env = NULL;
 	tcgetattr(0, &term);
 	new_term = term;
-	new_term.c_cc[VEOF] = 0;
-	tcsetattr(0,TCSANOW,&new_term);
+	new_term.c_cc[VEOF] = 3;
+	tcsetattr(0, TCSANOW, &new_term);
 	ft_putendl("Good day sir !");
 	if (signal(SIGINT, ft_handle_sig) == SIG_ERR)
 		ft_putendl("Error");

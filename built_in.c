@@ -30,7 +30,9 @@ int		ft_changedir(char **tab, t_env *env)
 				tmp = tmp->next;
 			}
 		else
+		{
 			dst = tab[1];
+		}
 		if (chdir(dst) != 0)
 			return (ft_usage_cd(dst, 1));
 	}
@@ -106,14 +108,17 @@ void	change_old_pwd(t_env *env)
 
 	tmp = env;
 	tmp1 = env;
-	while (tmp && ft_strcmp(tmp->name, "PWD") != 0)
-		tmp = tmp->next;
-	if (ft_strcmp(tmp->name, "PWD") == 0)
-		swp = ft_strdup(tmp->val);
-	while (tmp1 && ft_strcmp(tmp1->name, "OLDPWD"))
-		tmp1 = tmp1->next;
-	free(tmp1->val);
-	tmp1->val = ft_strdup(swp);
-	free(swp);
-	getcwd(tmp->val, 1024);
+	if (env)
+	{
+		while (tmp && ft_strcmp(tmp->name, "PWD") != 0)
+			tmp = tmp->next;
+		if (ft_strcmp(tmp->name, "PWD") == 0)
+			swp = ft_strdup(tmp->val);
+		while (tmp1 && ft_strcmp(tmp1->name, "OLDPWD"))
+			tmp1 = tmp1->next;
+		free(tmp1->val);
+		tmp1->val = ft_strdup(swp);
+		free(swp);
+		getcwd(tmp->val, 1024);
+	}
 }

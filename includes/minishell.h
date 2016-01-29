@@ -63,6 +63,7 @@ void				ft_handle_sig(int sig);
 
 /* ENV FUNCTIONS */
 
+void				ft_shell_level(t_env *env);
 int					ft_env(char **tab, t_env *env);
 char				*cat_env(char *s1, char *s2);
 char				*cat_path(char *s1, char *s2);
